@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "bootstrap-icons": "^1.9.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "path": "^0.12.7",
+    "pg": "^8.7.3",
+    "sequelize": "^6.21.3",
+    "sequelize-cockroachdb": "^6.0.5"
+  }
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+  <title>Test</title>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<head>
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+.header{
+    background-color: darksalmon;
+    margin:20px;
+    padding:40px;
+    text-align: center;
+}
+.header h1{
+    font-size:20px;
+}
+.newcenter{
+    margin:0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.submitcolor{
+    background-color: rgb(255, 178, 173);
+}
+</style>
+</head> 
+<body>
+  <div class="header">
+      <h1>Nostalgia</h1> 
+      <p>some tagline maybe</p>
+  </div>
+  
+  <div class = "newcenter">
+    <button id="new-scrapbook" type="button" class="btn submitcolor" >New Scrapbook</button>
+    <div class="row">
+      <div class="col">
+        <div id="new-scrapbook-form" class="hidden">
+          <form id="scrapbook-form">
+            <label for="sname">Scrapbook Name</label><br>
+            <input type="text" id="sname" name="sname"><br>
+            <label for="date">Start Date</label><br>
+            <input type="date" id="date" name="date"><br>
+            <!-- <input type="file" id="myFile" name="filename"><br> -->
+            <a href="/scrapbook"><input id="create-scrapbook" type="submit" class="btn submitcolor" value="Submit"></a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/script.js"></script>
+</body>
+</html>
