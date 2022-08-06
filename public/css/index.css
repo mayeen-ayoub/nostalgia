@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+body {
+    background-color: #dcd6f7;
+    color: #dcd6f7;
+    height: 100vh;
+    margin: 0;
+}
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    background-color: #4e4c67;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    margin-top: 1em;
+}
+
+header h1 {
+    font-size: 400%;
+    font-family: 'Satisfy', cursive;
+    /* margin: 0.2em 0.2em -0.1em 0.2em; */
+    margin: 0.2em 0.2em 0.2em 0.2em;
+}
+
+header p {
+    font-size: 70%;
+    font-family: 'Satisfy', cursive;
+    margin: 0em 1em 1em 1em;
+}
+
+#friend-group {
+    color: #4e4c67;
+    text-align: center;
+    margin-top: 1em;
+    color: #985f6f;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin-bottom: 2em;
+}
+
+button {
+    font-size: 130%;
+    font-family: 'Lato', sans-serif;
+    background-color: #a6b1e1;
+    color: #4e4c67;
+    border: none;
+    border-radius: 5px;
+    padding: 0.3em;
+    margin: 0.7em;
+}
+
+.scrapbook-example {
+    width: 13em;
+    height: 3em;
+}
+
+/* #scrapbook-example-1 {
+    background: url(/image1.png) no-repeat;
+    color: white
+} */
+
+.hidden {
+    display: none;
+}
+
+#new-scrapbook-form {
+    justify-content: center;
+    text-align: center;
+    background-color: #a6b1e1;
+    color: #4e4c67;
+    border-radius: 10px;
+    padding: 0.3em;
+}
+
+#scrapbook-form input {
+    height: 2em;
+    width: 10em;
+    margin: 0.5em;
+    border: none;
+    border-radius: 5px;
+}

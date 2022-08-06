@@ -4,11 +4,17 @@ var canvas = new fabric.Canvas('my_canvas');
 const paintToggle = document.getElementById('paint');
 paintToggle.onclick = () => {
   canvas.isDrawingMode = !canvas.isDrawingMode;
+  if (canvas.isDrawingMode) {
+    paintToggle.classList.add("paintActive");
+  } else {
+    paintToggle.classList.remove("paintActive");
+  }
 }
 
 var serialized;
 const save = document.getElementById('save');
 save.onclick = () => {
+  console.log(serialized ? 'true' : 'false');
   if (!serialized) {
     serialized = JSON.stringify(canvas);
     canvas.clear();
@@ -22,10 +28,11 @@ const addText = document.getElementById('textbox');
 addText.onclick = () => {
   canvas.isDrawingMode = false;
   var textBox = new fabric.Textbox('Edit Text', {
-    width: 200,
+    width: 50,
+    height: 10,
     fontFamily: 'sans-serif',
   });
-  textBox.set({ left: 400, top: 350});
+  // textBox.set({ left: 400, top: 350});
   canvas.add(textBox);
   canvas.setActiveObject(textBox);
 }
@@ -36,9 +43,9 @@ document.getElementById('file').addEventListener("change", function (event) {
   reader.onload = (file) => {
     var data = file.target.result;                    
     fabric.Image.fromURL(data, (img) => {
-      img.set({ left: 400, top: 350});
-      img.scaleToHeight(100);
-      img.scaleToWidth(200);
+      // img.set({ left: 400, top: 350});
+      img.scaleToHeight(50);
+      // img.scaleToWidth(100);
       canvas.add(img).renderAll();
       canvas.setActiveObject(img);
     });

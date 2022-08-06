@@ -1,0 +1,72 @@
+body {
+	font-family: 'Brush Script MT';
+	margin: 0;
+}
+
+#main-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
+
+header {
+	background-color: rgb(125, 240, 160);
+	margin: 20px;
+	padding: 10px;
+	text-align: center;
+}
+
+header h2 {
+	font-size: 40px;
+	color: rgb(0, 0, 0);
+}
+
+h1 {
+	font-size: 275%;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    margin: 1em 0 -1em 0;
+}
+
+canvas {
+	border: 1px solid black;
+}
+
+.addcolor {
+	background-color: rgb(244, 209, 96);
+	border: none;
+	font-family: Arial, Helvetica, sans-serif;
+	width: 10em;
+	margin: 0.5em;
+}
+
+.btn:focus {
+	background-color: rgb(244, 209, 96);
+}
+
+.paintActive {
+	background-color: rgb(224, 189, 76) !important;
+}
+
+.btn:active {
+    background-color: rgb(224, 189, 76);
+}
+
+.hidden {
+	display: none;
+}
