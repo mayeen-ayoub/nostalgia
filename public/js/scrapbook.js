@@ -11,17 +11,29 @@ paintToggle.onclick = () => {
   }
 }
 
-var serialized;
+// var serialized;
 const save = document.getElementById('save');
 save.onclick = () => {
+  let serialized;
   console.log(serialized ? 'true' : 'false');
-  if (!serialized) {
+  // if (!serialized) {
     serialized = JSON.stringify(canvas);
     canvas.clear();
     console.log(serialized);
-  } else {
-    canvas.loadFromJSON(serialized);
-  }
+  // } else {
+  //   canvas.loadFromJSON(serialized);
+  // }
+  let xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = () => {
+		if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+			window.location = './index.html'
+		}
+	}
+  const URL = 'http://localhost:3000/scrapbook';
+	xhttp.open('POST', URL, true);
+	xhttp.setRequestHeader("Content-type", "application/json");
+	xhttp.setRequestHeader("Accept", "application/json");
+	xhttp.send(serialized);
 }
 
 const addText = document.getElementById('textbox');

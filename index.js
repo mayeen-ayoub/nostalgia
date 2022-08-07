@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 const db = require('./server');
 
 const { Client } = require("pg");
+const { Console } = require('console');
 
 // (async () => {
 //   const client = new Client({
@@ -36,7 +37,7 @@ const { Client } = require("pg");
 //     console.log(`error connecting: ${err}`);
 //   }
 
-//   // Exit program
+//   Exit program
 //   process.exit();
 // })().catch((err) => console.log(err.stack));
 
@@ -52,11 +53,82 @@ app.use(
   })
 );
 
+// app.use('/canvas');
+
 app.use(express.static("./public"));
 
 app.get("/scrapbook", (req, res, next) => {
-  res.sendFile(path.join(__dirname, './public/scrapbook.html'));
+  if(req.accepts('html')) {
+    res.sendFile(path.join(__dirname, './public/scrapbook.html'));
+  } else {
+    (async () => {
+      const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        application_name: "$ docs_quickstart_node"
+      });
+      let request = JSON.stringify(req.body);
+      console.log(request);
+      const statements = [
+        // CREATE the messages table
+        "CREATE TABLE IF NOT EXISTS canvasess (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), canvas JSONB)",
+        // INSERT a row into the messages table
+        `INSERT INTO canvasess (canvas) VALUES ('${request}')`,
+        // SELECT a row from the messages table
+        "SELECT canvas FROM canvasess",
+      ];
+    
+      try {
+        // Connect to CockroachDB
+        await client.connect();
+        for (let n = 0; n < statements.length; n++) {
+          let result = await client.query(statements[n]);
+          if (result.rows[0]) { console.log(result.rows[0].canvas); }
+        }
+        await client.end();
+      } catch (err) {
+        console.log(`error connecting: ${err}`);
+      }
+    
+      // Exit program
+      res.status(200).send();
+    })().catch((err) => console.log(err.stack));
+  }
 });
+
+app.post("/scrapbook", (req, res, next) => {
+  (async () => {
+    const client = new Client({
+      connectionString: process.env.DATABASE_URL,
+      application_name: "$ docs_quickstart_node"
+    });
+    let request = JSON.stringify(req.body);
+    console.log(request);
+    const statements = [
+      // CREATE the messages table
+      "CREATE TABLE IF NOT EXISTS canvasess (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), canvas JSONB)",
+      // INSERT a row into the messages table
+      `INSERT INTO canvasess (canvas) VALUES ('${request}')`,
+      // SELECT a row from the messages table
+      "SELECT canvas FROM canvasess",
+    ];
+  
+    try {
+      // Connect to CockroachDB
+      await client.connect();
+      for (let n = 0; n < statements.length; n++) {
+        let result = await client.query(statements[n]);
+        if (result.rows[0]) { console.log(result.rows[0].canvas); }
+      }
+      await client.end();
+    } catch (err) {
+      console.log(`error connecting: ${err}`);
+    }
+  
+    // Exit program
+    res.status(200).send();
+  })().catch((err) => console.log(err.stack));
+});
+
 app.get("/", (req, res, next) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
 });
