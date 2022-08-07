@@ -53,6 +53,13 @@ header p {
     margin-bottom: 2em;
 }
 
+#scrapbook-collection {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
 button {
     font-size: 130%;
     font-family: 'Lato', sans-serif;

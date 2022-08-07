@@ -3,8 +3,32 @@ window.onload = function(){
   let pageId = document.getElementsByTagName("body")[0].id;
   if (pageId == 'index') {
     indexFunc();
+    let xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = () => {
+      if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+        let titles = JSON.parse(xhttp.responseText);
+        loadScrapbooks(titles);
+      }
+    }
+    const URL = 'http://localhost:3000/';
+    xhttp.open("GET", URL, true);
+    xhttp.setRequestHeader("Accept", "application/json");
+    xhttp.send();
   } else {
     scrapbookFunc();
+  }
+}
+
+const loadScrapbooks = (titles) => {
+  const scrapbookCollection = document.getElementById('scrapbook-collection');
+  for (let titleData of titles) {
+    const button = document.createElement('button');
+    button.innerHTML = titleData.title;
+    button.classList.add('scrapbook-example');
+    button.onclick = () => {
+      window.location = `./scrapbook?${titleData.title}`;
+    }
+    scrapbookCollection.appendChild(button);
   }
 }
 
@@ -22,45 +46,57 @@ const indexFunc = () => {
     newScrapbook.classList.add("hidden");
   }
 
-  var scrapbookInfo;
+  // var scrapbookInfo;
 
   const createScrapbook = document.getElementById('create-scrapbook');
   createScrapbook.onclick = (event) => {
     event.preventDefault();
     let scrapbookInfoInputs = document.getElementById('scrapbook-form').getElementsByTagName("input");
 
-    scrapbookInfo = {
+    let scrapbookInfo = {
       name: scrapbookInfoInputs[0].value,
       startDate: scrapbookInfoInputs[1].value,
     }
-    window.location = "./scrapbook"
+    // console.log();
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = () => {
+      if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+        window.location = "./scrapbook";
+      }
+    }
+    const URL = 'http://localhost:3000/scrapbook';
+    xhttp.open('POST', URL, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("Accept", "application/json");
+    xhttp.send(JSON.stringify({"title": scrapbookInfo.name}));
+    
   }
 
-  const scrapbook1 = document.getElementById('scrapbook-example-1');
-  scrapbook1.onclick = () => {
-    window.location = './scrapbook?edit';
-  }
+  // const scrapbook1 = document.getElementById('scrapbook-example-1');
+  // scrapbook1.onclick = () => {
+  //   window.location = './scrapbook?edit';
+  // }
 }
 
 const scrapbookFunc = () => {
   var canvas = new fabric.Canvas('my_canvas');
 
-  if (window.location.href.includes('?edit')) {
+  if (window.location.href.includes('?')) {
+    console.log("hello")
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = () => {
       if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
         // console.log(xhttp.responseText)
         let data = xhttp.responseText;
-        console.log(data);
+        console.log(xhttp.responseText);
         canvas.loadFromJSON(data);
-        
-        // data = undefined; 
       }
     }
-    const URL = 'http://localhost:3000/scrapbook';
-    xhttp.open("GET", URL, true);
+    const URL = 'http://localhost:3000';
+    xhttp.open("POST", URL, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.setRequestHeader("Accept", "application/json");
-    xhttp.send();
+    xhttp.send(JSON.stringify({"title": window.location.href.substring(window.location.href.indexOf('?') + 1)}));
   }
 
   /***NEW */
@@ -97,7 +133,7 @@ const scrapbookFunc = () => {
       }
     }
     const URL = 'http://localhost:3000/scrapbook';
-    xhttp.open('POST', URL, true);
+    xhttp.open('PUT', URL, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.setRequestHeader("Accept", "application/json");
     xhttp.send(serialized);
