@@ -1,6 +1,8 @@
 body {
 	font-family: 'Brush Script MT';
 	margin: 0;
+	background: rgb(18,97,154);
+	background: linear-gradient(18deg, rgba(18,97,154,1) 0%, rgba(237,128,128,1) 57%);
 }
 
 #main-container {
@@ -10,8 +12,13 @@ body {
 	height: 100%;
 }
 
+#my_canvas {
+	background-color: white;
+	border-radius: 5px;
+}
+
 header {
-	background-color: rgb(125, 240, 160);
+	/* background-color: rgb(125, 240, 160); */
 	margin: 20px;
 	padding: 10px;
 	text-align: center;
@@ -43,10 +50,6 @@ h1 {
     margin: 1em 0 -1em 0;
 }
 
-canvas {
-	border: 1px solid black;
-}
-
 .addcolor {
 	background-color: rgb(244, 209, 96);
 	border: none;
@@ -60,7 +63,7 @@ canvas {
 }
 
 .paintActive {
-	background-color: rgb(224, 189, 76) !important;
+	background-color: rgba(237,128,128) !important;
 }
 
 .btn:active {
