@@ -68,29 +68,31 @@ app.get("/scrapbook", (req, res, next) => {
       });
       let request = JSON.stringify(req.body);
       console.log(request);
-      const statements = [
-        // CREATE the messages table
-        "CREATE TABLE IF NOT EXISTS canvasess (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), canvas JSONB)",
-        // INSERT a row into the messages table
-        `INSERT INTO canvasess (canvas) VALUES ('${request}')`,
-        // SELECT a row from the messages table
-        "SELECT canvas FROM canvasess",
-      ];
+      
+      // const statements = [
+      //   // CREATE the messages table
+      //   "CREATE TABLE IF NOT EXISTS canvasesss (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), canvas JSONB, datetime TIMESTAMP)",
+      //   // INSERT a row into the messages table
+      //   `INSERT INTO canvasesss (canvas, datetime) VALUES ('${request}', TIMESTAMP '${today.getFullYear()}-${today.getMonth()}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}')`,
+      //   // SELECT a row from the messages table
+      //   "SELECT canvas FROM canvasesss",
+      // ];
     
       try {
+        let result;
         // Connect to CockroachDB
         await client.connect();
-        for (let n = 0; n < statements.length; n++) {
-          let result = await client.query(statements[n]);
-          if (result.rows[0]) { console.log(result.rows[0].canvas); }
-        }
+        // for (let n = 0; n < statements.length; n++) {
+          result = await client.query("SELECT * FROM canvasesss ORDER BY datetime DESC");
+          // if (result.rows[0]) { console.log(result.rows[0].canvas); }
+        // }
         await client.end();
+        res.status(200).set("Content-Type", "application/json").json(result.rows[0].canvas);
       } catch (err) {
         console.log(`error connecting: ${err}`);
       }
     
-      // Exit program
-      res.status(200).send();
+      
     })().catch((err) => console.log(err.stack));
   }
 });
@@ -103,13 +105,14 @@ app.post("/scrapbook", (req, res, next) => {
     });
     let request = JSON.stringify(req.body);
     console.log(request);
+    const today = new Date();
     const statements = [
       // CREATE the messages table
-      "CREATE TABLE IF NOT EXISTS canvasess (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), canvas JSONB)",
+      "CREATE TABLE IF NOT EXISTS canvasesss (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), canvas JSONB, datetime TIMESTAMP)",
       // INSERT a row into the messages table
-      `INSERT INTO canvasess (canvas) VALUES ('${request}')`,
+      `INSERT INTO canvasesss (canvas, datetime) VALUES ('${request}', TIMESTAMP '${today.getFullYear()}-${today.getMonth()}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}')`,
       // SELECT a row from the messages table
-      "SELECT canvas FROM canvasess",
+      "SELECT canvas FROM canvasesss",
     ];
   
     try {

@@ -26,7 +26,7 @@ save.onclick = () => {
   let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = () => {
 		if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
-			window.location = './index.html'
+			window.location = '/';
 		}
 	}
   const URL = 'http://localhost:3000/scrapbook';
