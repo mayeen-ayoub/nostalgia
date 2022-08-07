@@ -3,6 +3,7 @@ body {
 	margin: 0;
 	background: rgb(18,97,154);
 	background: linear-gradient(18deg, rgba(18,97,154,1) 0%, rgba(237,128,128,1) 57%);
+	height: 667px;
 }
 
 #main-container {
@@ -19,8 +20,8 @@ body {
 
 header {
 	/* background-color: rgb(125, 240, 160); */
-	margin: 20px;
-	padding: 10px;
+	margin-top: 20px;
+	/* padding: 10px; */
 	text-align: center;
 }
 
@@ -39,6 +40,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     height: 100%;
+		margin-top: -30px;
 }
 
 .button-group {
@@ -46,7 +48,7 @@ h1 {
     align-items: center;
     flex-direction: row;
     justify-content: center;
-    height: 100%;
+    height: 3.3em;
     margin: 1em 0 -1em 0;
 }
 
