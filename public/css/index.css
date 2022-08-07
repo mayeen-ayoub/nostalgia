@@ -2,10 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
 body {
-    /* background-color: #dcd6f7; */
     background: rgb(18,97,154);
     background: linear-gradient(18deg, rgba(18,97,154,1) 0%, rgba(237,128,128,1) 57%);
-    /* color: #dcd6f7; */
     color: black;
     height: 100vh;
     margin: 0;
@@ -18,7 +16,6 @@ body {
 }
 
 header {
-    /* background-color: #4e4c67; */
     font-family: 'Lato', sans-serif;
     text-align: center;
     margin-top: 1em;
@@ -27,7 +24,6 @@ header {
 header h1 {
     font-size: 400%;
     font-family: 'Satisfy', cursive;
-    /* margin: 0.2em 0.2em -0.1em 0.2em; */
     margin: 0.2em 0.2em 0.2em 0.2em;
 }
 
@@ -41,7 +37,6 @@ header p {
     color: black;
     text-align: center;
     margin-top: 1em;
-    /* color: #985f6f; */
 }
 
 #container {
@@ -75,11 +70,6 @@ button {
     width: 13em;
     height: 3em;
 }
-
-/* #scrapbook-example-1 {
-    background: url(/image1.png) no-repeat;
-    color: white
-} */
 
 .hidden {
     display: none;

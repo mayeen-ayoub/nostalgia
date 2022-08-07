@@ -3,11 +3,10 @@ const app = express();
 const port = 3000;
 const path = require('path');
 var bodyParser = require('body-parser');
-var dbName = 'test';
+var dbName = 'newDB';
 
 const { Client } = require("pg");
 
-// app.use(cors());
 app.use(bodyParser.json());
 
 app.use(
@@ -50,15 +49,10 @@ app.put("/scrapbook", (req, res, next) => {
       application_name: "$ docs_quickstart_node"
     });
 
-    // const client1 = new Client({
-    //   connectionString: process.env.DATABASE_URL,
-    //   application_name: "$ docs_quickstart_node"
-    // });
     let request = JSON.stringify(req.body);
     console.log(request);
     const today = new Date();
     const statements = [
-      // "CREATE TABLE IF NOT EXISTS canvasesss (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), title STRING, canvas JSONB, datetime TIMESTAMP)",
       `SELECT id FROM ${dbName} ORDER BY datetime DESC`,
       `INSERT INTO ${dbName} (canvas, datetime) VALUES ('${request}', TIMESTAMP '${today.getFullYear()}-${today.getMonth()}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}')`,
       `SELECT canvas FROM ${dbName}`,
@@ -66,20 +60,9 @@ app.put("/scrapbook", (req, res, next) => {
   
     try {
       await client.connect();
-      // for (let n = 0; n < statements.length; n++) {
-        let result = await client.query(`SELECT id FROM ${dbName} ORDER BY datetime DESC LIMIT 1`);
-        let id = result.rows[0].id;
-        // console.log(id);
-      // await client.end();
-      // await client1.connect();
-        // let updateResult = await client.query(`UPDATE canvasessss SET canvas = '${request}' WHERE id = '786754c9-09be-436f-9c8f-7c0f4cb5df66'`);
-        let updateResult = await client.query(`UPDATE ${dbName} SET canvas = '${request}' WHERE id = '${id}'`);
-        // let test = await client.query(`SELECT * FROM canvasessss WHERE id = '${id}'`);
-        // console.log(test)
-        // console.log(id.rows[0].id);
-        // if (result.rows[0]) { console.log(result.rows[0].canvas); }
-
-      // }
+      let result = await client.query(`SELECT id FROM ${dbName} ORDER BY datetime DESC LIMIT 1`);
+      let id = result.rows[0].id;
+      let updateResult = await client.query(`UPDATE ${dbName} SET canvas = '${request}' WHERE id = '${id}'`);
       await client.end();
     } catch (err) {
       console.log(`error connecting: ${err}`);
@@ -107,7 +90,6 @@ app.post("/scrapbook", (req, res, next) => {
       await client.connect();
       for (let n = 0; n < statements.length; n++) {
         let result = await client.query(statements[n]);
-        // if (result.rows[0]) { console.log(result.rows[0].title); }
       }
       await client.end();
     } catch (err) {
@@ -117,36 +99,6 @@ app.post("/scrapbook", (req, res, next) => {
     res.status(200).send();
   })().catch((err) => console.log(err.stack));
 });
-
-// app.post("/scrapbook", (req, res, next) => {
-//   (async () => {
-//     const client = new Client({
-//       connectionString: process.env.DATABASE_URL,
-//       application_name: "$ docs_quickstart_node"
-//     });
-//     let request = JSON.stringify(req.body);
-//     console.log(request);
-//     const today = new Date();
-//     const statements = [
-//       "CREATE TABLE IF NOT EXISTS canvasesss (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), canvas JSONB, datetime TIMESTAMP)",
-//       `INSERT INTO canvasesss (canvas, datetime) VALUES ('${request}', TIMESTAMP '${today.getFullYear()}-${today.getMonth()}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}')`,
-//       "SELECT canvas FROM canvasesss",
-//     ];
-  
-//     try {
-//       await client.connect();
-//       for (let n = 0; n < statements.length; n++) {
-//         let result = await client.query(statements[n]);
-//         if (result.rows[0]) { console.log(result.rows[0].canvas); }
-//       }
-//       await client.end();
-//     } catch (err) {
-//       console.log(`error connecting: ${err}`);
-//     }
-
-//     res.status(200).send();
-//   })().catch((err) => console.log(err.stack));
-// });
 
 app.get("/", (req, res, next) => {
   if(req.accepts('html')) {

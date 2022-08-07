@@ -19,9 +19,7 @@ body {
 }
 
 header {
-	/* background-color: rgb(125, 240, 160); */
 	margin-top: 20px;
-	/* padding: 10px; */
 	text-align: center;
 }
 
@@ -40,7 +38,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     height: 100%;
-	margin-top: -30px;
+		margin-top: -30px;
 }
 
 .button-group {
