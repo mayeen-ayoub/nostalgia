@@ -4,3 +4,6 @@ With hectic schedules, moving away for university, or having trouble keeping in 
 Connect, design, make memories with Nostalgia.
 
 Created for [Hack With a Crew](https://hackwithacrew.devpost.com/) hosted by MLH
+
+[Devpost submission](https://devpost.com/software/nostalgia)
+Try it out: http://mynostalgia.tech/
