@@ -7,4 +7,8 @@ Created for [Hack With a Crew](https://hackwithacrew.devpost.com/) hosted by MLH
 
 Try it out: http://mynostalgia.tech/
 
-[Devpost submission](https://devpost.com/software/nostalgia)
+### Awards
+- Won Best Hack With The Crew/Best on theme idea
+- [Devpost submission](https://devpost.com/software/nostalgia)
+
+
